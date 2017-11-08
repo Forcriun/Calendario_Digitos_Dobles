@@ -16,11 +16,11 @@
 public class CalendarioBasico
 {
     // Stores the day
-    private int day;
+    private DisplayDosCaracteres day;
     //Stores the month
-    private int month;
+    private DisplayDosCaracteres month;
     // Stores the year
-    private int year;
+    private DisplayDosCaracteres year;
 
     /**
      * Constructor for objects of class CalendarioBasico.
@@ -28,9 +28,9 @@ public class CalendarioBasico
     public CalendarioBasico()
     {
         // initialise instance variables
-        day = 1;
-        month = 1;
-        year = 1;
+        day = new DisplayDosCaracteres(31);
+        month = new DisplayDosCaracteres(13);
+        year = new DisplayDosCaracteres(100);
 
     }
 
@@ -41,9 +41,9 @@ public class CalendarioBasico
      */
     public void fijarFecha(int newDay,int newMonth,int newYear)
     {
-        day = newDay;
-        month = newMonth;
-        year = newYear;
+        day.setValorAlmacenado(newDay);
+        month.setValorAlmacenado(newMonth);
+        year.setValorAlmacenado(newYear);
 
     }
 
@@ -54,18 +54,14 @@ public class CalendarioBasico
      */
     public void avanzarFecha()
     {
-        day += 1;
-        if(day == 31){
-            day = 1;
-            month += 1;
+        day.incrementaValorAlmacenado();
+        if(day.getValorAlmacenado() == 1){
+            month.incrementaValorAlmacenado();
+            if(month.getValorAlmacenado() == 1){
+                year.incrementaValorAlmacenado();
+            }
         }
-        if(month == 13){
-            month = 1;
-            year += 1;
-        }
-        if(year == 100){
-            year = 1;
-        }
+
     }
 
     /**
@@ -73,18 +69,8 @@ public class CalendarioBasico
      */
     public String obtenerFecha()
     {
-        String stringD = day + "-";
-        String stringM = month + "-";
-        String stringY = year + "";
-        if(day < 10){
-            stringD = "0" + day + "-";
-        }
-        if(month < 10){
-            stringM = "0" + month + "-";
-        }
-        if(year < 10){
-            stringY = "0" + year;
-        }
-        return stringD + stringM + stringY;
+        String date;
+        date = day.getTextoDelDisplay() + "-" + month.getTextoDelDisplay() + "-" + year.getTextoDelDisplay();
+        return date;
     }
 }
